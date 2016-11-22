@@ -1,7 +1,6 @@
 package com.example.user.shoppingbasket;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by user on 22/11/2016.
@@ -10,35 +9,35 @@ import java.util.Collections;
 public class ShoppingBasket {
 
     private boolean customerHasLoyaltyCard;
-    private double valueOfContents;
-    private ArrayList<Item> shoppingBasket;
+    private double totalPrice;
+    private ArrayList<Item> contents;
 
     public ShoppingBasket() {
-        this.shoppingBasket = new ArrayList<>();
+        this.contents = new ArrayList<>();
         this.customerHasLoyaltyCard = false;
-        this.valueOfContents = 0.0;
+        this.totalPrice = 0.0;
     }
 
-    public ArrayList<Item> getShoppingBasket() {
-        return this.shoppingBasket;
+    public ArrayList<Item> getContents() {
+        return this.contents;
     }
 
     public void addItem(Item item) {
-        shoppingBasket.add(item);
+        contents.add(item);
     }
 
     public void removeItem(Item item) {
-        shoppingBasket.remove(item);
+        contents.remove(item);
     }
 
-    public void addToValueOfContents() {
-        for (Item item : shoppingBasket) {
-            valueOfContents += item.getPrice();
+    public void addItemPricesToTotalPrice() {
+        for (Item item : contents) {
+            totalPrice += item.getPrice();
         }
     }
 
-    public double getValueOfContents() {
-        return valueOfContents;
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
     public boolean getCustomerHasLoyaltyCard() {
@@ -51,9 +50,9 @@ public class ShoppingBasket {
 
     public void applyBuy1Get1FreeToBasket() {
         ArrayList<Item> freeItems = new ArrayList<>();
-        for (Item item : shoppingBasket) {
+        for (Item item : contents) {
             if (item.isBuy1Get1Free()) {
-                Item freeItem = new Item(item.getName(), 0.0, item.isBuy1Get1Free());
+                Item freeItem = new Item(item.getName(), 0.0, false);
                 freeItems.add(freeItem);
             }
             }
@@ -63,14 +62,14 @@ public class ShoppingBasket {
     }
 
     public void apply10PcDiscount() {
-        if (valueOfContents >= 20.0) {
-            valueOfContents = valueOfContents * .9;
+        if (totalPrice >= 20.0) {
+            totalPrice = totalPrice * .9;
         }
     }
 
     public void apply2PcDiscount() {
         if (customerHasLoyaltyCard) {
-            valueOfContents = valueOfContents * .98;
+            totalPrice = totalPrice * .98;
             }
         }
 
@@ -79,6 +78,7 @@ public class ShoppingBasket {
         apply10PcDiscount();
         apply2PcDiscount();
         }
+
     }
 
 

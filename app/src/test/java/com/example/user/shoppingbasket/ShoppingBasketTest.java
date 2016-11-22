@@ -39,7 +39,7 @@ public class ShoppingBasketTest {
     @Test
     public void testCanAddItemToBasket() {
         shoppingBasket.addItem(item1);
-        assertEquals(1, shoppingBasket.getShoppingBasket().size());
+        assertEquals(1, shoppingBasket.getContents().size());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class ShoppingBasketTest {
         shoppingBasket.addItem(item1);
         shoppingBasket.addItem(item2);
         shoppingBasket.removeItem(item2);
-        assertEquals(1, shoppingBasket.getShoppingBasket().size());
+        assertEquals(1, shoppingBasket.getContents().size());
     }
 
     @Test
@@ -61,43 +61,43 @@ public class ShoppingBasketTest {
         shoppingBasket.addItem(item1);
         shoppingBasket.addItem(item2);
         shoppingBasket.addItem(item3);
-        shoppingBasket.addToValueOfContents();
+        shoppingBasket.addItemPricesToTotalPrice();
         shoppingBasket.applyBuy1Get1FreeToBasket();
-        assertEquals(3.25, shoppingBasket.getValueOfContents());
-        assertEquals(5, shoppingBasket.getShoppingBasket().size());
+        assertEquals(3.25, shoppingBasket.getTotalPrice());
+        assertEquals(5, shoppingBasket.getContents().size());
     }
 
     @Test
     public void testCanApply10PcDiscount() {
         shoppingBasket.addItem(item5);
-        shoppingBasket.addToValueOfContents();
+        shoppingBasket.addItemPricesToTotalPrice();
         shoppingBasket.apply10PcDiscount();
-        assertEquals(23.4, shoppingBasket.getValueOfContents(), 0.1);
+        assertEquals(23.4, shoppingBasket.getTotalPrice(), 0.1);
     }
 
     @Test
     public void test10PcNotForUnder20() {
         shoppingBasket.addItem(item1);
-        shoppingBasket.addToValueOfContents();
+        shoppingBasket.addItemPricesToTotalPrice();
         shoppingBasket.apply10PcDiscount();
-        assertEquals(1.50, shoppingBasket.getValueOfContents(), 0.1);
+        assertEquals(1.50, shoppingBasket.getTotalPrice(), 0.1);
     }
 
     @Test
     public void testCanApply2PcDiscountWithLoyaltyCard() {
         shoppingBasket.addItem(item1);
-        shoppingBasket.addToValueOfContents();
+        shoppingBasket.addItemPricesToTotalPrice();
         shoppingBasket.setCustomerHasLoyaltyCard();
         shoppingBasket.apply2PcDiscount();
-        assertEquals(1.47, shoppingBasket.getValueOfContents(), 0.1);
+        assertEquals(1.47, shoppingBasket.getTotalPrice(), 0.1);
     }
 
     @Test
     public void testCantApply2PcDiscountWithoutLoyaltyCard() {
         shoppingBasket.addItem(item1);
-        shoppingBasket.addToValueOfContents();
+        shoppingBasket.addItemPricesToTotalPrice();
         shoppingBasket.apply2PcDiscount();
-        assertEquals(1.50, shoppingBasket.getValueOfContents(), 0.1);
+        assertEquals(1.50, shoppingBasket.getTotalPrice(), 0.1);
     }
 
     @Test
@@ -107,11 +107,11 @@ public class ShoppingBasketTest {
         shoppingBasket.addItem(item3);
         shoppingBasket.addItem(item4);
         shoppingBasket.addItem(item5);
-        shoppingBasket.addToValueOfContents();
+        shoppingBasket.addItemPricesToTotalPrice();
         shoppingBasket.setCustomerHasLoyaltyCard();
         shoppingBasket.applyAllDiscounts();
-        assertEquals(43.42, shoppingBasket.getValueOfContents(), 0.1);
-        assertEquals(8, shoppingBasket.getShoppingBasket().size());
+        assertEquals(43.42, shoppingBasket.getTotalPrice(), 0.1);
+        assertEquals(8, shoppingBasket.getContents().size());
     }
 
 }
