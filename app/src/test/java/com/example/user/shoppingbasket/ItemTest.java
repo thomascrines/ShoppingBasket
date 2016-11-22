@@ -30,12 +30,6 @@ public class ItemTest {
     }
 
     @Test
-    public void testPriceCanBeSet() {
-        item.setPriceToFree();
-        assertEquals(0.0, item.getPrice());
-    }
-
-    @Test
     public void testItemHasBuy1Get1FreeStatus() {
         assertEquals(true, item.isBuy1Get1Free());
     }

@@ -23,11 +23,6 @@ public class Item {
         return price;
     }
 
-    public double setPriceToFree() {
-        this.price = 0.0;
-        return price;
-    }
-
     public boolean isBuy1Get1Free() {
         return buy1Get1Free;
     }

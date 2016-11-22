@@ -29,15 +29,7 @@ public class ShoppingBasket {
         shoppingBasket.remove(item);
     }
 
-    public ArrayList<Double> getEveryPrice() {
-        ArrayList<Double> everyPrice = new ArrayList<>();
-        for (Item item : shoppingBasket) {
-            everyPrice.add(item.getPrice());
-        }
-        return everyPrice;
-    }
-
-    public double calculateTotalValue() {
+    public double getTotalValue() {
         double total = 0;
         for (Item item : shoppingBasket) {
             total += item.getPrice();
@@ -54,30 +46,33 @@ public class ShoppingBasket {
     }
 
     public void applyBuy1Get1FreeToBasket() {
+        ArrayList<Item> freeItems = new ArrayList<>();
         for (Item item : shoppingBasket) {
             if (item.isBuy1Get1Free()) {
-                Item freeItem = new Item(item.getName(), item.getPrice(), item.isBuy1Get1Free());
-                freeItem.setPriceToFree();
-                shoppingBasket.add(freeItem);
+                Item freeItem = new Item(item.getName(), 0.0, item.isBuy1Get1Free());
+                freeItems.add(freeItem);
             }
+            }
+        for (Item itemToAdd : freeItems) {
+            addItem(itemToAdd);
         }
     }
 
     public double apply10PcDiscount() {
-        if (calculateTotalValue() > 20.0) {
-            double newTotalValue = calculateTotalValue() * .9;
+        if (getTotalValue() > 20.0) {
+            double newTotalValue = getTotalValue() * .9;
             return newTotalValue;
         }
-        double newTotalValue = calculateTotalValue();
+        double newTotalValue = getTotalValue();
         return newTotalValue;
     }
 
     public double apply2PcDiscount() {
         if (customerHasLoyaltyCard) {
-            double loyaltyTotalValue = calculateTotalValue() * .98;
+            double loyaltyTotalValue = getTotalValue() * .98;
             return loyaltyTotalValue;
             }
-        double loyaltyTotalValue = calculateTotalValue();
+        double loyaltyTotalValue = getTotalValue();
         return loyaltyTotalValue;
         }
     }

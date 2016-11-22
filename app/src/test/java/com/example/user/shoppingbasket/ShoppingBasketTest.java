@@ -51,22 +51,6 @@ public class ShoppingBasketTest {
     }
 
     @Test
-    public void testCanGetEveryPriceInBasket() {
-        shoppingBasket.addItem(item1);
-        shoppingBasket.addItem(item2);
-        shoppingBasket.addItem(item3);
-        assertEquals(testArray, shoppingBasket.getEveryPrice());
-    }
-
-    @Test
-    public void testCanGetTotalValue() {
-        shoppingBasket.addItem(item1);
-        shoppingBasket.addItem(item2);
-        shoppingBasket.addItem(item3);
-        assertEquals(3.25, shoppingBasket.calculateTotalValue(), 0.1);
-    }
-
-    @Test
     public void testCanSetCustomerHasLoyaltyCard() {
         shoppingBasket.setCustomerHasLoyaltyCard();
         assertEquals(true, shoppingBasket.getCustomerHasLoyaltyCard());
@@ -78,7 +62,7 @@ public class ShoppingBasketTest {
         shoppingBasket.addItem(item2);
         shoppingBasket.addItem(item3);
         shoppingBasket.applyBuy1Get1FreeToBasket();
-        assertEquals(2.25, shoppingBasket.calculateTotalValue());
+        assertEquals(3.25, shoppingBasket.getTotalValue());
         assertEquals(5, shoppingBasket.getShoppingBasket().size());
     }
 
