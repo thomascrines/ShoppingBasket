@@ -10,11 +10,13 @@ import java.util.Collections;
 public class ShoppingBasket {
 
     private boolean customerHasLoyaltyCard;
+    private double valueOfContents;
     private ArrayList<Item> shoppingBasket;
 
     public ShoppingBasket() {
         this.shoppingBasket = new ArrayList<>();
         this.customerHasLoyaltyCard = false;
+        this.valueOfContents = 0.0;
     }
 
     public ArrayList<Item> getShoppingBasket() {
@@ -29,12 +31,14 @@ public class ShoppingBasket {
         shoppingBasket.remove(item);
     }
 
-    public double getTotalValue() {
-        double total = 0;
+    public void addToValueOfContents() {
         for (Item item : shoppingBasket) {
-            total += item.getPrice();
+            valueOfContents += item.getPrice();
         }
-        return total;
+    }
+
+    public double getValueOfContents() {
+        return valueOfContents;
     }
 
     public boolean getCustomerHasLoyaltyCard() {
@@ -58,22 +62,24 @@ public class ShoppingBasket {
         }
     }
 
-    public double apply10PcDiscount() {
-        if (getTotalValue() > 20.0) {
-            double newTotalValue = getTotalValue() * .9;
-            return newTotalValue;
+    public void apply10PcDiscount() {
+        if (valueOfContents >= 20.0) {
+            valueOfContents = valueOfContents * .9;
         }
-        double newTotalValue = getTotalValue();
-        return newTotalValue;
     }
 
-    public double apply2PcDiscount() {
+    public void apply2PcDiscount() {
         if (customerHasLoyaltyCard) {
-            double loyaltyTotalValue = getTotalValue() * .98;
-            return loyaltyTotalValue;
+            valueOfContents = valueOfContents * .98;
             }
-        double loyaltyTotalValue = getTotalValue();
-        return loyaltyTotalValue;
+        }
+
+    public void applyAllDiscounts() {
+        applyBuy1Get1FreeToBasket();
+        apply10PcDiscount();
+        apply2PcDiscount();
         }
     }
+
+
 
