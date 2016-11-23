@@ -114,4 +114,30 @@ public class ShoppingBasketTest {
         assertEquals(8, shoppingBasket.getContents().size());
     }
 
+    @Test
+    public void testCanReturnListOfOrder(){
+        shoppingBasket.addItem(item1);
+        shoppingBasket.addItem(item2);
+        shoppingBasket.addItem(item3);
+        shoppingBasket.addItem(item4);
+        shoppingBasket.addItem(item5);
+        shoppingBasket.addItemPricesToTotalPrice();
+        shoppingBasket.setCustomerHasLoyaltyCard();
+        shoppingBasket.applyAllDiscounts();
+        assertEquals("You ordered:\n" +
+                "Butter\n" +
+                "Kettle\n" +
+                "Orange Juice\n" +
+                " (Plus one free Orange Juice)\n" +
+                "Croissant\n" +
+                " (Plus one free Croissant)\n" +
+                "Waffle Iron\n" +
+                " (Plus one free Waffle Iron)\n", shoppingBasket.returnListOfOrder());
+        assertEquals("Retail price is £49.23.", shoppingBasket.returnRetailPrice());
+        assertEquals("Buy one get one free was applied to 3 items, giving a total saving of £28.49.", shoppingBasket.returnBOGOFSavings());
+        assertEquals("As you have spent over £20, a 10% discount has been applied, giving a total saving of £4.92.", shoppingBasket.return10PcSavingsDiscount());
+        assertEquals("As you have a loyalty card a 2% discount has been applied, giving a saving of £0.98.", shoppingBasket.return2PcSavingsDiscount());
+        assertEquals("In total, you have saved £34.3 on this transaction.", shoppingBasket.returnTotalSavings());
+    }
+
 }
